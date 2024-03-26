@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Project;
+use App\Http\Requests\StoreProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -12,7 +14,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::all();
+
+        return view('pages.projects.index', compact('projects'));
     }
 
     /**
@@ -20,15 +24,23 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.projects.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        //
+        $val_data = $request->validated();
+
+        $slug = Project::generateSlug($request->title);
+
+        $val_data['slug'] = $slug;
+
+        $new_project = Project::create($val_data);
+
+        return redirect()->route('dashboard.projects.index');
     }
 
     /**
