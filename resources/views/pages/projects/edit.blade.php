@@ -18,8 +18,9 @@
         </div>
     @endif
 
-    <form action="{{ route('dashboard.projects.store') }}" method="POST">
+    <form action="{{ route('dashboard.projects.update', $project->id) }}" method="POST">
         @csrf
+        @method('PUT')
 
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
