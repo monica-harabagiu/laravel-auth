@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', c)
+@section('title', 'Edit Project')
 
 @section('content')
 
@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('dashboard.projects.update', $project->id) }}" method="POST">
+    <form action="{{ route('dashboard.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -32,9 +32,15 @@
             <textarea name="description" class="form-control" id="description" rows="3">{{ old('description', $project->description) }}</textarea>
         </div>
 
+        <div>
+            @if ($project->img)
+                <img src="{{ asset('storage/'.$project->img) }}" alt="">
+            @endif
+        </div>
+
         <div class="mb-3">
-          <label for="img" class="form-label">Image URL</label>
-          <input value="{{ old('img', $project->img) }}" name="img" type="text" class="form-control" id="img">
+          <label for="img" class="form-label">Image</label>
+          <input value="{{ old('img', $project->img) }}" name="img" type="file" class="form-control" id="img">
         </div>
 
         <div class="mb-3">

@@ -77,6 +77,16 @@ class ProjectController extends Controller
 
         $val_data['slug'] = $slug;
 
+        if ($request->hasFile('img')) {
+            
+            if ($project->img) {
+                Storage::delete($project->img);
+            };
+
+            $imagePath = Storage::disk('public')->put('img', $request['img']);
+            $val_data['img'] = $imagePath;
+        };
+
         $project->update($val_data);
 
         return redirect()->route('dashboard.projects.index');
