@@ -7,5 +7,9 @@
         <h2>{{ $project->title }}</h2>
 
         <p>{{ $project->description }}</p>
+
+        @if ($project->img)
+            <img src="{{ asset('storage/'.$project->img) }}" alt="">
+        @endif
     </main>
 @endsection

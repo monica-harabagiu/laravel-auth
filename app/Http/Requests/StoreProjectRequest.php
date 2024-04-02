@@ -27,7 +27,7 @@ class StoreProjectRequest extends FormRequest
                 'required', 
                 Rule::unique('projects')],
             'description' => ['nullable'],
-            'img' => ['nullable'],
+            'img' => ['nullable', 'image', 'max:5000'],
             'software' => ['nullable'],
         ];
     }
